@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from.models import Signup
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -44,24 +44,46 @@ def login(request):
         acctype=request.POST["acctype"]
         email=request.POST["email"]
         password=request.POST["password"]
+
         sign_up = Signup.objects.get(email=email)
+        context = {
+            "email": sign_up.email,
+            "address": sign_up.address,
+            "address2": sign_up.address2,
+            "city": sign_up.city,
+            "state": sign_up.state,
+            "zip": sign_up.zip
+        }
 
         if acctype == "students":
             if True == sign_up.is_student:
                 user = auth.authenticate(request=request, username=email, password=password)
                 if user is not None:
                     auth.login(request, user)
-                return HttpResponse("successfully logged in as students")
-            else:
-                return HttpResponse("You are not register as students")
+
+                    return render(request, "student.html",{"context": context})
+                else:
+                    return HttpResponse("You are not register as student")
         else:
             if True == sign_up.is_teacher:
                 user = auth.authenticate(request=request, username=email, password=password)
                 if user is not None:
                     auth.login(request, user)
-                return HttpResponse("successfully logged in as teacher")
+                    return render(request, "teacher.html",{"context": context})
             else:
                 return HttpResponse("You are not register as teacher")
-
     else:
         return render(request,"login.html")
+
+
+def logout(request):
+    auth.logout(request=request)
+    return redirect("/")
+
+
+def student(request):
+    return render(request,"student.html")
+
+
+def teacher(request):
+    return render(request,"teacher.html")
