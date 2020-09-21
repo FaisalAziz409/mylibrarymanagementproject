@@ -37,7 +37,7 @@
 				<li><a href="#book" class="scrollto">Book</a></li>
 				<li><a href="#reviews" class="scrollto">Reviews</a></li>
 				<li><a href="#author" class="scrollto">Author</a></li>
-				<li><a href="Attendence" class="scrollto">Attendence</a></li>
+				<li><a href="studentsdetails" class="scrollto">students details</a></li>
 				{% if user.is_authenticated %}
 				<li><a href="logout" class="scrollto">logout</a></li>
 				{% else %}
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<h2 class="heading wow animated fadeInUp">About The student</h2>
+				<h2 class="heading wow animated fadeInUp">About The teacher                                                                                                                                                                                               </h2>
 				<h4 class="subheading wow animated fadeInUp">{{context.email}}</h4>
 				<p class="small wow animated fadeInUp">{{context.address}} </p>
 				<p class="small wow animated fadeInUp">{{context.address2}}</p>
@@ -90,6 +90,32 @@
 		</div>
 	</div>
 </section>
+	<div class="container">
+        <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">name</th>
+      <th scope="col">fathername</th>
+      <th scope="col">email</th>
+      <th scope="col">mobilenumber</th>
+    </tr>
+  </thead>
+  <tbody>
+ {% for i in stddata %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i.name}}</td>
+      <td>{{i.fathername}}</td>
+      <td>{{i.email}}</td>
+      <td>{{i.mobilenumber}}</td>
+    </tr>
+ {%endfor%}
+
+  </tbody>
+</table>
+	</div>
+
 
 
 

@@ -16,6 +16,27 @@ class Signup(models.Model):
     def __str__(self):
         return self.email
 
+class Student_signup(models.Model):
+    name=models.CharField(max_length=150)
+    email=models.CharField(max_length=150)
+    fathername=models.CharField(max_length=150)
+    password=models.CharField(max_length=250)
+    mobilenumber=models.CharField(max_length=150)
+
+
+    def __str__(self):
+        return self.email
+
+class Attendence(models.Model):
+    name=models.CharField(max_length=150)
+    date=models.DateField(auto_now=True)
+    time=models.TimeField(auto_now=True)
+    present=models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.name
+
 
 
 

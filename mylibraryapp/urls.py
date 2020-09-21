@@ -24,5 +24,9 @@ urlpatterns = [
     path("logout",views.logout, name="logout"),
     path("student",views.student, name="student"),
     path("teacher",views.teacher, name="teacher"),
+    path("student_signup",views.student_signup, name="student_signup"),
+    path("multiplestudentsignup",views.multiplestudentsignup, name="multiplestudentsignup"),
+    path("studentsdetails",views.studentsdetails, name="studentsdetails"),
+    path("Attendence",views.attendence, name="Attendence"),
 
 ]

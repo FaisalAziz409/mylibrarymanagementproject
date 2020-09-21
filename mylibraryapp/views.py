@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from.models import Signup
+from.models import Signup,Student_signup,Attendence
 from django.contrib.auth.models import User
 from django.contrib import auth
+
 
 
 # Create your views here.
@@ -87,3 +88,38 @@ def student(request):
 
 def teacher(request):
     return render(request,"teacher.html")
+
+def student_signup(request):
+    if request.method=="POST":
+        name=request.POST["name"]
+        fathername=request.POST["fathername"]
+        email=request.POST["email"]
+        password=request.POST["password"]
+        mobilenumber=request.POST["mobilenumber"]
+
+        user=User.objects.create_user(username=email,email=email,password=password)
+        user.save()
+
+        users=Student_signup(name=name,fathername=fathername,email=email,password=password,mobilenumber=mobilenumber)
+
+        users.save()
+
+        return redirect("teacher")
+    else:
+        return render(request,"login.html")
+
+
+def multiplestudentsignup(request):
+    if request.method=="POST":
+        excel = request.FILES
+        print(excel)
+
+def studentsdetails(request):
+    user=Student_signup.objects.all()
+    return render(request,"std_detail.html" ,{'stddata':user})
+
+def attendence(request):
+    std_attendence=Attendence.objects.all()
+    return render(request,"std_Attendence.html", {"stdattendence":std_attendence})
+
+
